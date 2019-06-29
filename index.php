@@ -68,7 +68,7 @@ function edd_fun( $discount_id, $discount ) {
 	<?php
 	}
 
-function edd_verify_nonce($discount_id) {
+function edd_verify_nonce() {
 
 	// 	global $post;
 	// $discount = new EDD_Discount();
@@ -81,11 +81,10 @@ function edd_verify_nonce($discount_id) {
 		return;
 	}
 	if (  isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce($_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
-		
 		//wp_die();
 		$maxprice = $_POST['max_price'];
 		var_dump($maxprice);
-		update_post_meta($post->ID,'_edd_discount_max_price',$maxprice);
+		update_post_meta(24,'_edd_discount_max_price',$maxprice);
 	}
 
 }
