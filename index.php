@@ -28,10 +28,11 @@ define( 'BSF_EAC_ABSPATH', plugin_dir_path( __FILE__ ) );
 
 add_action('edd_add_discount_form_before_max_uses','edd_add_form');
 add_action( 'edd_edit_discount_form_before_status', 'edd_fun',10,2);
-add_action( 'init', 'edd_verify_nonce',10,2);
+add_filter( 'edd_insert_discount', 'edd_verify_add_nonce', 1, 20);
+add_action( 'init', 'edd_verify_nonce');
 
-function edd_add_form()
-{
+function edd_add_form($discount_id=null)
+{	
 	?>
 	<tr>
 		<th scope="row" valign="top">
@@ -39,7 +40,7 @@ function edd_add_form()
 		</th>
 		<td>
 			<input type="text" id="edd-max-cart-amount" name="max_price" value=" " />
-			<p class="description"><?php _e( 'The maximum dollar amount that must be in the cart before this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
+			<p class="description"><?php _e( 'The maximum dollar amount below which this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
 		</td>
 	</tr>
 	<?php
@@ -56,8 +57,8 @@ function edd_fun( $discount_id, $discount ) {
 		</th>
 		<td>
 			<input type="text" id="edd-max-cart-amount" name="max_price" value="<?php echo esc_attr($max_price); ?>" style="width: 40px "/>
-			<p class="description"><?php _e( 'The maxixmun amount that must be purchased before this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
-		</td>
+			<p class="description"><?php _e( 'The maximum dollar amount below which this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
+		</td>	
 	</tr>
 	
 	<?php
@@ -65,22 +66,35 @@ function edd_fun( $discount_id, $discount ) {
 
 function edd_verify_nonce() {
 	
-	$page = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : null;
+	//$discount_new= new EDD_Discount( (int) $data['discount-id'] );
 	
+	$id=(!empty($_GET['discount']) ? $_GET['discount'] : '' );
+	
+	$page = isset( $_GET['page'] ) ? sanitize_text_field( $_GET['page'] ) : null;	
 	if ( 'edd-discounts' !== $page ) {
 		return;
 	}
 	if (  isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce($_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
-		//add_post_meta( $discount_id, '_edd_discount_max_price', $max_price );
-		(float) $maxprice = (!empty($_POST['max_price']) ? $_POST['max_price'] : 0);
-		update_post_meta(24,'_edd_discount_max_price',$maxprice);
+		
+	    $maxprice = (!empty($_POST['max_price']) ? $_POST['max_price'] : 0);
+		update_post_meta($id,'_edd_discount_max_price',$maxprice);
 	}
 
 }
 
 
 add_filter('edd_is_discount_min_met', 'myfun',11,2);
+function edd_verify_add_nonce($meta) {
+ $maxprice = (!empty($_POST['max_price']) ? $_POST['max_price'] : 0);
 
+ $arr = array(
+'max_price' => $maxprice
+ );
+
+$meta = array_merge($arr,$meta);
+	return $meta;
+
+}
 function myfun( $return = false, $discount_id = null ) {
 
 	if( $return ){
@@ -90,7 +104,7 @@ function myfun( $return = false, $discount_id = null ) {
 		$max_price = get_post_meta($discount_id,'_edd_discount_max_price',true);
 		$cart_amount = edd_get_cart_discountable_subtotal( $discount_id);
 
-			if ( (float) $cart_amount <= (float)$max_price) {
+			if ( (float) $cart_amount <= (float)$max_price ) {
 				$is_discount_max_met = true;
 			} elseif ( (float) $max_price == 0) {
 				$is_discount_max_met = true;	
@@ -101,7 +115,21 @@ function myfun( $return = false, $discount_id = null ) {
 		return $is_discount_max_met;
 			
 	}
-
-	//return $return;
 }	
 
+/********** Apply discount based on variable pricing *********/
+
+
+/*add_filter( 'edd_product_dropdown_args',  'update_dropdown_args',1);
+function update_dropdown_args($args)
+{
+	
+	// $arr=array( 'variations'  => true);
+	// $args = array_merge($arr,$args);
+	$args['variations']  = true;
+	// echo "<pre>";
+	// print_r($args);
+	// wp_die();
+	return $args;	
+}
+*/
