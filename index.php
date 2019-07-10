@@ -188,19 +188,21 @@ function is_max_met( $return = false, $discount_id = null ) {
 	}
 }	
 
-function is_product_con_met($return = false, $discount_id = null)
+function is_product_con_met($return = false, $discount_id = null,$product_condition=null)
 {
 	if( $return )
 	{	
+				$discount = new EDD_Discount( $discount_id );
+
+		$product_condition='any';
+		//vl($product_condition);
 		$products_con = get_post_meta($discount_id,'_edd_discount_products_con',true);
-		// vl($products_con); 
+		$cart = edd_get_cart_contents();
 		$return=false;
 
-		$products_con = array_map( 'absint', $products_con );
-		asort( $products_con );
-		$products_con = array_filter( array_values( $products_con ) );
-
-	//vl($products_con);
+		 // $products_con = array_map( 'absint', $products_con );
+		 // asort( $products_con );
+		 // $products_con = array_filter( array_values( $products_con ) );
 		
 		if ( empty( $products_con ) ) {
 			$return = true;
@@ -208,55 +210,69 @@ function is_product_con_met($return = false, $discount_id = null)
 		if(  ! empty( $products_con))
 		{
 			foreach ( $products_con as $download_id ) {
-
 				if ( empty( $download_id ) ) {
 					continue;
 				}
-				// We have used filter from below funciton to add variation support.
-				// @see add_filter( 'edd_get_discount_product_reqs', 'edd_ac_edd_item_in_cart', 10, 3 );
-				// $test = array( "discount_id" => $discount_id );
-				if ( edd_item_in_cart( $download_id ) ) {
-					$return=true;
-					break;
+
+					if ( is_array( $cart ) ) {
+
+					foreach ( $cart as $item ) {
+						$pid=explode('_', $download_id);
+
+							if ( $item['id'] == $pid[0] ) {
+
+								if ( isset($pid[1]) && isset( $item['options']['price_id'] ) ) {
+
+									if ( $pid[1] == $item['options']['price_id'] ) {
+
+										$return = true;
+										//echo "ok";
+										break 2;	
+
+									} else{
+											$return= false;
+											edd_set_error( 'edd-discount-error', __( 'The product requirements for this discount are not met.', 'easy-digital-downloads' ) );
+											break;
+									} 
+									
+								} else{
+										$return=true;
+										// echo "okkk";
+										break;
+									}
+
+							} else{
+
+									$return=false;
+									//echo "test";
+									edd_set_error( 'edd-discount-error', __( 'The product requirements for this discount are not met.', 'easy-digital-downloads' ) );
+									break;
+								}
+							
+					}
+
 				} 
-				else {
-					$return=false;
-					edd_set_error( 'edd-discount-error', __( 'The product requirements for this discount are not met.', 'easy-digital-downloads' ) );	
-				}
-			}
-
+			}		
+				
 		}
-		//var_dump($return);	
-		return $return;
+		//var_dump($return);
+		//vl(edd_is_discount_not_global($discount_id));
+			//var_dump($product_condition);	
+
+		return $return;		
 	}
 }
 
-/*add_filter( 'edd_item_in_cart', 'edd_ac_edd_item_in_cart', 10, 3 );
-function edd_ac_edd_item_in_cart( $ret, $download_id, $options ) {
-
-	if( $ret ) {
-
-		$cart = edd_get_cart_contents();
-		$discount  = edd_get_discount_by_code( $_POST['code'] );
-		$products_con = get_post_meta($discount->id,'_edd_discount_products_con',true);
-		//vl($products_con);
-		if (($pos = strpos($products_con, "_")) !== FALSE) { 
-    				$priceid = substr($products_con, $pos+1); 
-		}
-		//vl($pos);
-		$pid=explode('_', $products_con);
-		
-
-		$text = substr($products_con, (strpos($products_con, '_') ?: -1) + 1);
-		vl($text);
-		
+// Disabled the Download condition of previous option.
+add_filter( 'edd_discount_is_not_global','prodcuct_is_not_global'); 
+function prodcuct_is_not_global($return=false, $is_not_global=null)
+{
+	if(! $return || $return)
+	{
+		$is_not_global=true;
+		return $is_not_global;
 	}
-
-	return $ret;
-}
-
-*/
-
+}	
 
 
 /**
@@ -285,3 +301,52 @@ add_filter( 'edd_get_discount_product_reqs', function( $product_reqs, $ID ) {
 	return array_unique( wp_parse_args( $product_reqs, $products_con ) );
 
 }, 10, 2);
+
+
+
+// We have used filter from below funciton to add variation support.
+				// @see add_filter( 'edd_get_discount_product_reqs', 'edd_ac_edd_item_in_cart', 10, 3 );
+				// $test = array( "discount_id" => $discount_id );
+
+				//writing my code in if condition......
+				// if ( edd_item_in_cart( $download_id ) ) {
+				// 	$return=true;
+				// 	break;
+				// }
+
+// add_filter( 'edd_item_in_cart', 'edd_ac_edd_item_in_cart', 10, 3 );
+// function edd_ac_edd_item_in_cart( $ret, $download_id, $options ) {
+
+// 	if( $ret ) {
+// 		$ret=false;
+// 		$cart = edd_get_cart_contents();
+// 		$discount  = edd_get_discount_by_code( $_POST['code'] );
+// 		$products_con = get_post_meta($discount->id,'_edd_discount_products_con',true);
+// 		//vl($products_con);
+// 		//vl($cart);
+// 		if ( is_array( $cart ) ) {
+// 			foreach ( $cart as $item ) {
+// 					if ( $item['id'] == $download_id ) {
+// 						//vl($download_id);	
+// 						//foreach ($products_con as $download_id) {		
+// 							$pid=explode('_', $download_id);
+// 							//vl($pid[1]);
+// 								if ( $pid[1] == $item['options']['price_id'] ) {
+// 									$ret = true;
+// 									echo "okkkk";
+// 									break;
+// 								}
+// 						//}
+
+// 					}
+// 			}			
+// 		}	
+// 		// if (($pos = strpos($products_con, "_")) !== FALSE) { 
+//   		//   				$priceid = substr($products_con, $pos+1); 
+// 		// }		
+// 	}
+
+// 	return $ret;
+// }	
+
+
