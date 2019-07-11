@@ -5,8 +5,8 @@
  * Version:     1.0.0
  * Author:      Brainstorm Force
  * Author URI:  https://brainstormforce.com
- * Text Domain: 
- * Main
+ * Text Domain: easy-digital-downloads
+ * 
  * 
  *
  * @category PHP
@@ -235,16 +235,13 @@ function is_product_con_met($return = false, $discount_id = null,$product_condit
 									
 								} else{
 										$return=true;
-										// echo "okkk";
 										break;
 									}
 
 							} else{
-
+									
 									$return=false;
-									//echo "test";
 									edd_set_error( 'edd-discount-error', __( 'The product requirements for this discount are not met.', 'easy-digital-downloads' ) );
-									break;
 								}
 							
 					}
@@ -293,7 +290,7 @@ function get_product_req($product_reqs, $ID ) {
 		$product_reqs=true;
 		return $product_reqs;
 	}
-
+	//vl(array_unique( wp_parse_args( $product_reqs, $products_con ) ));
 	return array_unique( wp_parse_args( $product_reqs, $products_con ) );
 
 }
