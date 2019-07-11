@@ -192,20 +192,18 @@ function is_product_con_met($return = false, $discount_id = null,$product_condit
 {
 	if( $return )
 	{	
-				$discount = new EDD_Discount( $discount_id );
-
+		$discount = new EDD_Discount( $discount_id );
 		$product_condition='any';
-		//vl($product_condition);
 		$products_con = get_post_meta($discount_id,'_edd_discount_products_con',true);
 		$cart = edd_get_cart_contents();
 		$return=false;
-
-		 // $products_con = array_map( 'absint', $products_con );
+		 //$products_con = array_map( 'absint', $products_con );
 		 // asort( $products_con );
-		 // $products_con = array_filter( array_values( $products_con ) );
-		
+		$products_con = array_filter( array_values( $products_con ) );
+		//vl($products_con);
 		if ( empty( $products_con ) ) {
 			$return = true;
+
 		}
 		if(  ! empty( $products_con))
 		{
@@ -226,7 +224,7 @@ function is_product_con_met($return = false, $discount_id = null,$product_condit
 									if ( $pid[1] == $item['options']['price_id'] ) {
 
 										$return = true;
-										//echo "ok";
+									
 										break 2;	
 
 									} else{
@@ -255,10 +253,6 @@ function is_product_con_met($return = false, $discount_id = null,$product_condit
 			}		
 				
 		}
-		//var_dump($return);
-		//vl(edd_is_discount_not_global($discount_id));
-			//var_dump($product_condition);	
-
 		return $return;		
 	}
 }
@@ -281,7 +275,8 @@ function prodcuct_is_not_global($return=false, $is_not_global=null)
  * @param array $product_reqs IDs of required products.
  * @param int   $ID           Discount ID.
  */
-add_filter( 'edd_get_discount_product_reqs', function( $product_reqs, $ID ) {
+add_filter( 'edd_get_discount_product_reqs','get_product_req',10,2); 
+function get_product_req($product_reqs, $ID ) {
 
 	if( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 		return $product_reqs;
@@ -295,12 +290,13 @@ add_filter( 'edd_get_discount_product_reqs', function( $product_reqs, $ID ) {
 
 	// Is empty "Product Requirements" then return defaults.
 	if( empty( $products_con ) ) {
+		$product_reqs=true;
 		return $product_reqs;
 	}
 
 	return array_unique( wp_parse_args( $product_reqs, $products_con ) );
 
-}, 10, 2);
+}
 
 
 
