@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * BSF EDD Advanced Coupons.
  *
@@ -42,7 +44,14 @@ if ( ! class_exists( 'BSFEAC_Loader' ) ) :
 		public function __construct() {
 
 			require_once BSF_EAC_ABSPATH . 'includes/bsfeac-page.php';
+			add_action('admin_enqueue_scripts', array($this , 'bsf_eac_stylesheet' ));
+		
 		}
+
+		public function bsf_eac_stylesheet()
+        {
+            wp_enqueue_style( 'bsf_eac_as_style', BSF_EAC_PLUGIN_URL . '/assets/css/eac-style.css', null,'1.0', false );    
+        }
 	}
 
 		BSFEAC_Loader::get_instance();
