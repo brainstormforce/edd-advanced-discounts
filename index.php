@@ -110,7 +110,7 @@ function add_products_option(){ ?>
 					'placeholder' => sprintf( __( 'Select one or more %s', 'easy-digital-downloads' ), edd_get_label_plural() ),
 				) ); ?><br/>
 			</p>
-			<div id="edd-discount-product-conditions" style="display: none;">
+			<div id="edd-discount-product-conditions" >
 						<p>
 							<select id="edd-product-new-condition" name="product_condition">
 								<option value="all"><?php printf( __( 'Cart must contain all selected %s', 'easy-digital-downloads' ), edd_get_label_plural() ); ?></option>
