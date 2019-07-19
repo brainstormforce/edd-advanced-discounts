@@ -52,7 +52,7 @@ add_filter('edd_is_discount_products_req_met','is_product_request_met',11,2);
 function add_max_option($discount_id=null)
 {	
 	?>
-	<table class="form-table">
+	<table class="form-table edd-adv-coupon-form">
 		<tbody>
 	<tr>
 		<th scope="row" valign="top">
@@ -73,7 +73,7 @@ function edit_max_option( $discount_id, $discount ) {
 	$max_price = get_post_meta( $discount_id, '_edd_discount_max_price',true );
 	
 	?>
-	<table class="form-table">
+	<table class="form-table edd-adv-coupon-form">
 		<tbody>
 	<tr>
 		<th scope="row" valign="top">
@@ -93,7 +93,7 @@ function edit_max_option( $discount_id, $discount ) {
 
 function add_products_option(){ ?>
 
-<table class="form-table">
+<table class="form-table edd-adv-coupon-form">
 	<tbody>
 		<tr class="new_options">
 		<th scope="row" valign="top">
@@ -140,7 +140,7 @@ function edit_products_option($discount_id,$discount)
 {
 	$product_request=get_post_meta($discount_id, '_edd_discount_product_request',true);
 	?>
-	<table class="form-table">
+	<table class="form-table edd-adv-coupon-form">
 		<tbody>
 		<tr class="new_options" >
 		<th scope="row" valign="top">
@@ -188,7 +188,7 @@ function edit_products_option($discount_id,$discount)
 
 function add_excluded_products()
 { ?>
-	<table class="form-table">
+	<table class="form-table edd-adv-coupon-form">
 		<tbody>
 			<tr>
 				<th scope="row" valign="top">
@@ -216,7 +216,7 @@ function edit_excluded_products($discount_id,$discount){
 
 	$product_excluded=get_post_meta($discount_id, '_edd_discount_product_excluded',true);
 	?>
-	<table class="form-table">
+	<table class="form-table edd-adv-coupon-form">
 		<tbody>
 			<tr>
 				<th scope="row" valign="top">
