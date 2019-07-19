@@ -304,7 +304,7 @@ function is_product_request_met($return = false, $discount_id = null)
 		$return=false;
 		$product_condition=edd_get_discount_product_condition($discount_id);
 		$product_request = get_post_meta($discount_id,'_edd_discount_product_request',true);
-		$product_request = array_filter( array_values( $product_request ) );
+		$product_request = array_filter( array_values( $product_request ) );	
 
 		$product_excluded = get_post_meta($discount_id,'_edd_discount_product_excluded',true);
 	//	$product_coreexcluded = array_map( 'absint', $product_excluded );
@@ -405,12 +405,12 @@ function is_product_request_met($return = false, $discount_id = null)
 		// 		edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
 		// 	}
 		// }
-  	//count( array_intersect( $cart_coreids, $product_excluded ) ) == count( $cart_coreids ) ||
+  	//
 		if ( ! empty( $product_excluded ) ) {
 			// vl($product_excluded);
 			// vl($cart_ids);
 			// // vl($cart_coreids);
-			if ( 
+			if ( count( array_intersect( $cart_coreids, $product_excluded ) ) == count( $cart_coreids ) ||
 				count( array_intersect( $cart_ids, $product_excluded ) ) == count( $cart_ids ) ) {
 					$return = false;
 					if ( !$return ) {
