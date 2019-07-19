@@ -19,7 +19,7 @@ define( 'BSF_EAC_ABSPATH', plugin_dir_path( __FILE__ ) );
 require_once BSF_EAC_ABSPATH . '/classes/class-bsfeac-loader.php';
 define( 'BSF_EAC_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 define( 'BSF_EAC_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
-wp_enqueue_style('bsf_eac_as_style');
+//wp_enqueue_style('bsf_eac_as_style');
 
 
  function is_edd_active()
@@ -60,7 +60,7 @@ function add_max_option($discount_id=null)
 		</th>
 		<td>
 			<input type="text" id="edd-max-cart-amount" name="max_price" value=" " />
-			<p class="description"><?php _e( 'The maximum dollar amount below which this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
+			<p class="description"><?php _e( 'The maximum amount below which this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
 		</td>
 	</tr>
 		</tbody>
@@ -81,7 +81,7 @@ function edit_max_option( $discount_id, $discount ) {
 		</th>
 		<td>
 			<input type="text" id="edd-max-cart-amount" name="max_price" value="<?php echo esc_attr($max_price); ?>" style="width: 40px "/>
-			<p class="description"><?php _e( 'The maximum dollar amount below which this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
+			<p class="description"><?php _e( 'The maximum amount below which this discount can be used. Leave blank for no maximum.', 'easy-digital-downloads' ); ?></p>
 		</td>	
 	</tr>
 		</tbody >
@@ -110,7 +110,7 @@ function add_products_option(){ ?>
 					'placeholder' => sprintf( __( 'Select one or more %s', 'easy-digital-downloads' ), edd_get_label_plural() ),
 				) ); ?><br/>
 			</p>
-			<div id="edd-discount-product-conditions" >
+			<div id="edd-discount-product-condition" >
 						<p>
 							<select id="edd-product-new-condition" name="product_condition">
 								<option value="all"><?php printf( __( 'Cart must contain all selected %s', 'easy-digital-downloads' ), edd_get_label_plural() ); ?></option>
@@ -124,7 +124,7 @@ function add_products_option(){ ?>
 							</label><br/>
 							<label>
 								<input type="radio" class="tog" name="not_global" value="1"/>
-								<?php printf( __( 'Apply discount only to selected %s.', 'easy-digital-downloads' ), edd_get_label_plural() ); ?>
+								<?php printf( __( 'Apply discount only to selected Downloads.', 'easy-digital-downloads' ), edd_get_label_plural() ); ?>
 							</label>
 						</p>
 					</div>
@@ -306,13 +306,21 @@ function is_product_request_met($return = false, $discount_id = null)
 		$product_request = get_post_meta($discount_id,'_edd_discount_product_request',true);
 		$product_request = array_filter( array_values( $product_request ) );
 		$product_excluded = get_post_meta($discount_id,'_edd_discount_product_excluded',true);
+		
 		$product_excluded = array_filter( array_values( $product_excluded ) );
-		$product_request = array_filter( array_values( $product_request ) );
 		$cart_items   = edd_get_cart_contents();
+
+		// $cart_ids     = $cart_items ? wp_list_pluck( $cart_items, 'id' ) : null;
+		// $cart_ids     = array_map( 'absint', $cart_ids );
+		// asort( $cart_ids );
+		// $cart_ids     = array_values( $cart_ids );
+
 		$cart_ids=array();
 		foreach ($cart_items as $item) {
 			if(isset($item['options']['price_id'])){
 				array_push($cart_ids,implode('_',array($item['id'],$item['options']['price_id'])));
+				//array_push($cart_ids,$item['id']);
+
 			} else {
 				array_push($cart_ids,$item['id']);
 			}
@@ -320,13 +328,20 @@ function is_product_request_met($return = false, $discount_id = null)
 		}
 		$cart_ids     = array_values( $cart_ids );
 
+		// core product ids
+
+		 $cart_coreids     = $cart_items ? wp_list_pluck( $cart_items, 'id' ) : null;
+		 $cart_coreids     = array_map( 'absint', $cart_coreids );
+		 $cart_coreids     = array_values( $cart_coreids );
+	
 		if ( empty( $product_request ) && empty( $product_excluded ) ) {
 			$return = true;
 		}
-		if (  ! $return && ! empty( $product_request ) ) {
+
+		if (  ! $return && ! empty( $product_request )
+		 ) {
 			switch ( $product_condition ) {
 				case 'all' :
-
 					// Default back to true
 					$return = true;
 
@@ -336,17 +351,15 @@ function is_product_request_met($return = false, $discount_id = null)
 							continue;
 						}
 
-						if ( ! edd_item_in_cart( $download_id ) ) {
+						if ( ! edd_item_in_cart( $download_id )   ) {
 							$return = false;
 							if ( ! $return ) {
 								edd_set_error( 'edd-discount-error', __( 'The product requirements for this discount are not met.', 'easy-digital-downloads' ) );
 							}
-
-							
-
 							break;
 
 						}
+
 
 					}
 
@@ -355,7 +368,6 @@ function is_product_request_met($return = false, $discount_id = null)
 				default :
 
 					foreach ( $product_request as $download_id ) {
-
 						if ( empty( $download_id ) ) {
 							continue;
 						}
@@ -365,6 +377,7 @@ function is_product_request_met($return = false, $discount_id = null)
 						}	
 
 					}
+				
 					if ( ! $return  ) {
 						edd_set_error( 'edd-discount-error', __( 'The product requirements for this discount are not met.', 'easy-digital-downloads' ) );
 					}
@@ -374,35 +387,62 @@ function is_product_request_met($return = false, $discount_id = null)
 			}
 
 		} else {
-
 			$return = true;
 
 		}
+
+		//For Excluded products
+
+		// if(!empty($product_excluded)){
+		// 	foreach ($product_excluded as $excluded) {
+		// 		if(edd_item_in_cart($excluded)){
+		// 			$return=false;
+		// 			break;
+		// 		}
+		// 	}
+		// 	if(! $return){
+		// 		edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
+		// 	}
+		// }
+
+  	
+		// if ( ! empty( $product_excluded ) ) {
+		// 	vl($product_excluded);
+		// 	vl($cart_ids);
+		// 	vl($cart_coreids);
+		// 	if ( count( array_intersect( $cart_coreids, $product_excluded ) ) == count( $cart_coreids ) ||
+		// 		count( array_intersect( $cart_ids, $product_excluded ) ) == count( $cart_ids ) ) {
+		// 			$return = false;
+		// 			if ( !$return ) {
+		// 			edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
+		// 		   }
+		// 	}
+		// }
 				
-			if ( ! empty( $product_excluded ) ) {
-			if ( count( array_intersect( $cart_ids, $product_excluded ) ) == count( $cart_ids ) ) {
-				$return = false;
-				if ( !$return ) {
-					edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
-				}
-			}
-		}
 		return $return;
 	}
 }
+
+
 
 add_filter('edd_item_in_cart','item_in_cart',5,3);
 function item_in_cart($ret=true,$download_id = 0, $options = array())
 {
 if(!$ret || $ret){
 $cart = edd_get_cart_contents();
+
 $ret = false;
 if ( is_array( $cart ) ) {
 			foreach ( $cart as $item ) {
 				$pid=explode('_', $download_id);
+				vl($item['id']);
+				vl($pid[0]);
 				if ( $item['id'] == $pid[0]) {
+					vl($item['options']['price_id']);
+					vl($pid[1]);
 					if ( isset( $pid[1] )  && isset( $item['options']['price_id'] ) ) {
 						if ( $pid[1] == $item['options']['price_id'] ) {
+							echo "here";
 							$ret = true;
 							break;
 						}
@@ -416,6 +456,9 @@ if ( is_array( $cart ) ) {
 	return $ret;
 	}	
 }
+
+
+
 /**
  * Filters the download requirements.
  *
@@ -428,14 +471,10 @@ function get_product_req($product_reqs, $ID ) {
 	if( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 		return $product_reqs;
 	}
-
-
 	$product_request = (array) get_post_meta($ID,'_edd_discount_product_request',true);
 	$product_request = array_map( 'absint', $product_request );
 	asort( $product_request );
-	$product_request = array_filter( array_values( $product_request ) );
-
-	
+	$product_request = array_filter( array_values( $product_request ) );	
 	if( empty( $product_request ) ) {
 		return $product_reqs;
 	}
@@ -451,42 +490,29 @@ function get_product_req($product_reqs, $ID ) {
 		 * @param array $excluded_products IDs of excluded products.
 		 * @param int   $ID                Discount ID.
  */
+
 add_filter( 'edd_get_discount_excluded_products','get_excluded_products',10,2); 
 function get_excluded_products($excluded_products, $ID ) {
-
-	if( ! defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
+	if( !defined( 'DOING_AJAX' ) || ! DOING_AJAX ) {
 		return $excluded_products;
 	}
-	$product_excluded = (array) get_post_meta($ID,'_edd_discount_product_excluded',true);
 
-	$product_excluded = array_map( 'absint', $product_excluded );
+	$product_excluded = (array) get_post_meta($ID,'_edd_discount_product_excluded',true);
+	//$product_excluded = array_map( 'absint', $product_excluded );
 	asort( $product_excluded );
 	$product_excluded = array_filter( array_values( $product_excluded ) );
 	if( empty( $product_excluded ) ) {
 		return $excluded_products;
 	}
-	return array_unique( wp_parse_args( $excluded_products,$product_excluded ) );
-}
 
+	foreach ($excluded_products as $key => $main_product_id) {
+		if( in_array($main_product_id, $product_excluded) ) {
+			unset( $excluded_products[$key] );
+		}
+	}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+		//return array_unique(array_merge($excluded_products,$product_excluded));
+		//return $excluded_products;
+		// vl(array_unique(wp_parse_args($excluded_products,$product_excluded)));
+		return $product_excluded;
+} 
