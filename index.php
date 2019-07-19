@@ -393,17 +393,17 @@ function is_product_request_met($return = false, $discount_id = null)
 
 		//For Excluded products
 
-		// if(!empty($product_excluded)){
-		// 	foreach ($product_excluded as $excluded) {
-		// 		if(edd_item_in_cart($excluded)){
-		// 			$return=false;
-		// 			break;
-		// 		}
-		// 	}
-		// 	if(! $return){
-		// 		edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
-		// 	}
-		// }
+		if(!empty($product_excluded)){
+			foreach ($product_excluded as $excluded) {
+				if(edd_item_in_cart($excluded)){
+					$return=false;
+					break;
+				}
+			}
+			if(! $return){
+				edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
+			}
+		}
 
   	
 		// if ( ! empty( $product_excluded ) ) {
