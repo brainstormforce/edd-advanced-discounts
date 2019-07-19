@@ -393,31 +393,31 @@ function is_product_request_met($return = false, $discount_id = null)
 
 		//For Excluded products
 
-		if(!empty($product_excluded)){
-			foreach ($product_excluded as $excluded) {
-				if(edd_item_in_cart($excluded)){
-					$return=false;
-					break;
-				}
-			}
-			if(! $return){
-				edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
-			}
-		}
-
-  	
-		// if ( ! empty( $product_excluded ) ) {
-		// 	vl($product_excluded);
-		// 	vl($cart_ids);
-		// 	vl($cart_coreids);
-		// 	if ( count( array_intersect( $cart_coreids, $product_excluded ) ) == count( $cart_coreids ) ||
-		// 		count( array_intersect( $cart_ids, $product_excluded ) ) == count( $cart_ids ) ) {
-		// 			$return = false;
-		// 			if ( !$return ) {
-		// 			edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
-		// 		   }
+		// if(!empty($product_excluded)){
+		// 	foreach ($product_excluded as $excluded) {
+		// 		if(edd_item_in_cart($excluded)){
+		// 			$return=false;
+		// 			break;
+		// 		}
+		// 	}
+		// 	if(! $return){
+		// 		edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
 		// 	}
 		// }
+
+  	
+		if ( ! empty( $product_excluded ) ) {
+			// vl($product_excluded);
+			// vl($cart_ids);
+			// vl($cart_coreids);
+			if ( count( array_intersect( $cart_coreids, $product_excluded ) ) == count( $cart_coreids ) ||
+				count( array_intersect( $cart_ids, $product_excluded ) ) == count( $cart_ids ) ) {
+					$return = false;
+					if ( !$return ) {
+					edd_set_error( 'edd-discount-error', __( 'This discount is not valid for the cart contents.', 'easy-digital-downloads' ) );
+				   }
+			}
+		}
 				
 		return $return;
 	}
@@ -435,14 +435,14 @@ $ret = false;
 if ( is_array( $cart ) ) {
 			foreach ( $cart as $item ) {
 				$pid=explode('_', $download_id);
-				vl($item['id']);
-				vl($pid[0]);
+				// vl($item['id']);
+				// vl($pid[0]);
 				if ( $item['id'] == $pid[0]) {
-					vl($item['options']['price_id']);
-					vl($pid[1]);
+					// vl($item['options']['price_id']);
+					// vl($pid[1]);
 					if ( isset( $pid[1] )  && isset( $item['options']['price_id'] ) ) {
 						if ( $pid[1] == $item['options']['price_id'] ) {
-							echo "here";
+							//echo "here";
 							$ret = true;
 							break;
 						}
