@@ -1,33 +1,33 @@
-// var EDD_Discount = {
 
-// 		init : function() {
 
-// 			this.new_product_requirements();
-// 		},
-// new_product_requirements : function() {
 
-// 			$('#product_request').change(function() {
+// function myFunction() {
 
-// 				var new_product_conditions = $( '#edd-discount-new-product-conditions' );
-
-// 				if( $(this).val() ) {
-// 					new_product_conditions.show();
+//     $('#product_request').change( function() {
+     
+//     	var conditions =$( '#edd-discount-product-conditions_new' );
+//     	if( $(this).val() ) {
+// 					conditions.show();
 // 				} else {
-// 					new_product_conditions.hide();
+// 					conditions.hide();
 // 				}
-
-// 			});
-
-// 		},
-
-// 	};
-
-
-// $("#product_request").change( function() {
+//     });
+    
+// }
 
 
 
+/**
+	 * Discount add / edit screen JS
+*/
 
-
-	
-// })
+$(document).ready(function(){
+    $('#product_request').change( function() {
+    	var conditions =$( '#edd-discount-product-conditions_new' );
+    	if( $(this).val() ) {
+					conditions.show();
+				} else {
+					conditions.hide();
+				}
+    });
+ });
