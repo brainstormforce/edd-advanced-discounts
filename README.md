@@ -1,2 +1,0 @@
-# EDD Advanced Coupons
-
