@@ -8,14 +8,14 @@
  * Text Domain: advanced-discount-edd
  *
  * @category PHP 7
- * @package  BSF advanced-discount-edd
+ * @package  advanced-discount-edd
  * @author   Display Name <username@brainstormforce.com>
  * @license  https://brainstormforce.com
  * @link     https://brainstormforce.com
  */
 
-define( 'BSF_ADE_ABSPATH', plugin_dir_path( __FILE__ ) );
-define( 'BSF_ADE_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
-define( 'BSF_ADE_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
-require_once plugin_dir_path( __FILE__ ) . '/classes/class-bsfade-loader.php';
+define( 'ADE_EDD_ABSPATH', plugin_dir_path( __FILE__ ) );
+define( 'ADE_EDD_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
+define( 'ADE_EDD_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+require_once plugin_dir_path( __FILE__ ) . '/classes/class-ade-loader.php';
 

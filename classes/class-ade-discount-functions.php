@@ -3,7 +3,7 @@
  * The Discount Function Class
  *
  * @since      1.0.0
- * @package    BSF Advanced Discount EDD
+ * @package    Advanced Discount EDD
  * @author     Brainstorm Force.
  */
 
@@ -14,7 +14,7 @@
  *
  * @since 1.0.0
  */
-class BSFADE_Discount_Functions {
+class ADE_EDD_Discount_Functions {
 	/**
 	 * Member Variable
 	 *
@@ -81,14 +81,11 @@ class BSFADE_Discount_Functions {
 		if ( $return ) {
 			$return            = false;
 			$product_condition = edd_get_discount_product_condition( $discount_id );
-
 			$product_request = (array) get_post_meta( $discount_id, '_edd_discount_product_request', true );
 			$product_request = array_filter( array_values( $product_request ) );
-
 			$cart_items = edd_get_cart_contents();
 
 			if ( empty( $product_request ) ) {
-
 				$return = true;
 			}
 
@@ -151,7 +148,6 @@ class BSFADE_Discount_Functions {
 	 * @return bool $ret true if item in cart..
 	 */
 	public function ade_item_in_cart( $ret = true, $download_id = 0, $options = array() ) {
-		if ( ! $ret || $ret ) {
 			$cart = edd_get_cart_contents();
 			$ret  = false;
 			if ( is_array( $cart ) ) {
@@ -171,7 +167,6 @@ class BSFADE_Discount_Functions {
 				}
 			}
 			return $ret;
-		}
 	}
 
 	/**
@@ -190,7 +185,7 @@ class BSFADE_Discount_Functions {
 			$product_request = array_map( 'absint', $product_request );
 			$product_request = array_filter( array_values( $product_request ) );
 			asort( $product_request );
-
+			
 		if ( empty( $product_request ) ) {
 			return $product_request;
 		}
@@ -198,5 +193,5 @@ class BSFADE_Discount_Functions {
 	}
 }
 
-		BSFADE_Discount_Functions::get_instance();
+		ADE_EDD_Discount_Functions::get_instance();
 

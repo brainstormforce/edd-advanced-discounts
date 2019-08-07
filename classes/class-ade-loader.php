@@ -5,23 +5,23 @@
  * PHP version 7
  *
  * @category PHP
- * @package  BSF Advanced Discount EDD
+ * @package  Advanced Discount EDD
  * @author   Display Name <username@brainstormforce.com>
  * @license  http://brainstormforce.com
  * @link     http://brainstormforce.com
  */
 
-if ( ! class_exists( 'BSFADE_Loader' ) ) :
+if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 	/**
 	 * Advanced coupons for EDD Loader Doc comment
 	 *
 	 * @category PHP 7
-	 * @package  BSF Advanced Discount EDD
+	 * @package  Advanced Discount EDD
 	 * @author   Display Name <username@brainstormforce.com>
 	 * @license  http://brainstormforce.com
 	 * @link     http://brainstormforce.com
 	 */
-	class BSFADE_Loader {
+	class ADE_EDD_Loader {
 		/**
 		 * Member Variable
 		 *
@@ -41,19 +41,19 @@ if ( ! class_exists( 'BSFADE_Loader' ) ) :
 		 * Constructor
 		 */
 		public function __construct() {
-			require_once BSF_ADE_ABSPATH . '/classes/class-bsfade-discount-options.php';
-			require_once BSF_ADE_ABSPATH . '/classes/class-bsfade-discount-functions.php';
+			require_once ADE_EDD_ABSPATH . '/classes/class-ade-discount-options.php';
+			require_once ADE_EDD_ABSPATH . '/classes/class-ade-discount-functions.php';
 			add_action( 'admin_notices', array( $this, 'ade_is_edd_active' ) );
-			add_action( 'admin_enqueue_scripts', array( $this, 'bsf_ade_script' ) );
+			add_action( 'admin_enqueue_scripts', array( $this, 'ade_script' ) );
 
 		}
 
 		/**
 		 *  Register JS file for enable and disable product condition.
 		 */
-		public function bsf_ade_script() {
+		public function ade_script() {
 
-			wp_register_script( 'bsf_js', BSF_ADE_PLUGIN_URL . '/assets/js/ade_load_js.js', null, '1.0', true );
+			wp_register_script( 'ade-edd-js', ADE_EDD_PLUGIN_URL . '/assets/js/ade_load_js.js', null, '1.0', true );
 
 		}
 
@@ -72,5 +72,5 @@ if ( ! class_exists( 'BSFADE_Loader' ) ) :
 		}
 	}
 
-		BSFADE_Loader::get_instance();
+		ADE_EDD_Loader::get_instance();
 endif;

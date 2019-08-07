@@ -3,7 +3,7 @@
  * The Add Option Class
  *
  * @since      1.0.0
- * @package    BSF Advanced Discount EDD
+ * @package    Advanced Discount EDD
  * @author     Brainstorm Force.
  */
 
@@ -14,7 +14,7 @@
  *
  * @since 1.0.0
  */
-class BSFADE_Discount_Options {
+class ADE_EDD_Discount_Options {
 	/**
 	 * Member Variable
 	 *
@@ -36,8 +36,8 @@ class BSFADE_Discount_Options {
 	public function __construct() {
 		add_action( 'edd_add_discount_form_bottom', array( $this, 'ade_add_new_option' ), 10 );
 		add_action( 'edd_edit_discount_form_bottom', array( $this, 'ade_edit_new_option' ), 10, 2 );
-		add_filter( 'edd_insert_discount', array( $this, 'ade_verify_add_nonce' ), 20, 1 );
-		add_action( 'init', array( $this, 'ade_verify_nonce' ) );
+		add_filter( 'edd_insert_discount', array( $this, 'ade_add_opt_meta' ), 20, 1 );
+		add_action( 'init', array( $this, 'ade_update_data' ) );
 
 	}
 
@@ -45,7 +45,7 @@ class BSFADE_Discount_Options {
 	 *  Function for adding new option in add new discount page.
 	 */
 	public function ade_add_new_option() {
-		wp_enqueue_script( 'bsf_js' ); ?>
+		wp_enqueue_script( 'ade-edd-js' ); ?>
 			<table class="form-table">
 				<tbody>
 
@@ -115,7 +115,7 @@ class BSFADE_Discount_Options {
 		$product_request = (array) get_post_meta( $discount_id, '_edd_discount_product_request', true );
 		$product_request = array_filter( array_values( $product_request ) );
 		$max_price       = get_post_meta( $discount_id, '_edd_discount_max_price', true );
-		wp_enqueue_script( 'bsf_js' );
+		wp_enqueue_script( 'ade-edd-js');
 		$condition_dis = empty( $product_request ) ? 'style="display:none;"' : '';
 		?>
 
@@ -183,16 +183,16 @@ class BSFADE_Discount_Options {
 	}
 
 	/**
-	 *  Checks and verify nonce to insert data in existing databse.
+	 *  Checks and verify nonce to insert data in existing databse or add new data option in meta data.
 	 *
 	 * @param array $meta User Input For Discount.
 	 * @return array $meta Meta Data Saved In Database.
 	 */
-	public function ade_verify_add_nonce( $meta ) {
+	public function ade_add_opt_meta( $meta ) {
 
 		if ( isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce( $_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
 			$maxprice       = ! empty( $_POST['max_price'] ) ? floatval( $_POST['max_price'] ) : 0;
-			$productrequest = ( ! empty( $_POST['product_request'] ) ? ( $_POST['product_request'] ) : array() );
+			$productrequest = ! empty( $_POST['product_request'] ) ?  $_POST['product_request'] : array();
 			$productrequest = array_map( 'esc_attr', $productrequest );
 			$arr            = array(
 				'max_price'       => $maxprice,
@@ -201,16 +201,17 @@ class BSFADE_Discount_Options {
 
 				$meta = array_merge( $arr, $meta );
 				return $meta;
+
 		}
 	}
 
 	/**
 	 *  Checks nonce to update metadata in database.
 	 */
-	public function ade_verify_nonce() {
+	public function ade_update_data() {
 
 		if ( isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce( $_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
-			$id   = ( ! empty( $_GET['discount'] ) ? $_GET['discount'] : '' );
+			$id   =  ! empty( $_GET['discount'] ) ? $_GET['discount'] : '' ;
 			$page = isset( $_GET['page'] ) ? ( $_GET['page'] ) : null;
 			if ( 'edd-discounts' !== $page ) {
 				return;
@@ -227,5 +228,5 @@ class BSFADE_Discount_Options {
 
 }
 
-		BSFADE_Discount_Options::get_instance();
+		ADE_EDD_Discount_Options::get_instance();
 
