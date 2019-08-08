@@ -177,7 +177,7 @@ class ADE_EDD_Discount_Functions {
 	 * @return array of product requirements
 	 */
 	public function ade_get_product_req( $product_reqs, $id ) {
-		if ( isset( $_GET['page'] ) && 'edd-discounts' === $_GET['page'] ) {//PHPCS:ignore:WordPress.Security.NonceVerification.Recommended
+		if ( isset( $_GET['page'] ) && 'edd-discounts' === sanitize_key( $_GET['page'] ) ) {//PHPCS:ignore:WordPress.Security.NonceVerification.Recommended
 			return $product_reqs;
 		}
 

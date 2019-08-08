@@ -211,8 +211,8 @@ class ADE_EDD_Discount_Options {
 	public function ade_update_data() {
 
 		if ( isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce( $_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
-			$id   =  ! empty( $_GET['discount'] ) ? $_GET['discount'] : '' ;
-			$page = isset( $_GET['page'] ) ? ( $_GET['page'] ) : null;
+			$id   =  ! empty( $_GET['discount'] ) ? sanitize_key($_GET['discount'] ) : '' ;
+			$page = isset( $_GET['page'] ) ?  sanitize_key( $_GET['page'] ) : null;
 			if ( 'edd-discounts' !== $page ) {
 				return;
 			}
