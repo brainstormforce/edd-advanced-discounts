@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: Advanced Discount Code for Easy Digital Downloads
+ * Plugin Name: EDD Advanced Discounts
  * Description: Discounting options to EDD
  * Version:     1.0.0
  * Author:      Brainstorm Force
@@ -17,5 +17,6 @@
 define( 'ADE_EDD_ABSPATH', plugin_dir_path( __FILE__ ) );
 define( 'ADE_EDD_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 define( 'ADE_EDD_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
+
 require_once plugin_dir_path( __FILE__ ) . '/classes/class-ade-loader.php';
 
