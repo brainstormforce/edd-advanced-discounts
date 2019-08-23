@@ -65,7 +65,7 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 			if ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ) {
 
 				echo '<div class="notice notice-error">';
-				echo '<p>The <strong>Advanced Discount Code for Easy Digital Downloads</strong> ' . esc_html__( 'plugin requires', 'advanced-discount-edd' ) . " <strong><a href='" . esc_url( $url ) . "'>Easy Digital Downloads</strong></a>" . esc_html__( ' plugin installed & activated.', 'advanced-discount-edd' ) . '</p>';
+				echo '<p>The <strong>EDD Advanced Discount</strong> ' . esc_html__( 'plugin requires', 'advanced-discount-edd' ) . " <strong><a href='" . esc_url( $url ) . "'>Easy Digital Downloads</strong></a>" . esc_html__( ' plugin installed & activated.', 'advanced-discount-edd' ) . '</p>';
 				echo '</div>';
 
 			}

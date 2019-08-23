@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: EDD Advanced Discounts
- * Description: Discounting options to EDD
+ * Description: Customize EDD discounts easily that will bring more sales and profit to your store. Offer discounts on selected product variations and set a maximum limit for cart total.
  * Version:     1.0.0
  * Author:      Brainstorm Force
  * Author URI:  https://brainstormforce.com

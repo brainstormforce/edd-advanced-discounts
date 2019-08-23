@@ -203,6 +203,8 @@ class ADE_EDD_Discount_Options {
 				return $meta;
 
 		}
+
+		return $meta;
 	}
 
 	/**
