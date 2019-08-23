@@ -115,7 +115,7 @@ class ADE_EDD_Discount_Options {
 		$product_request = (array) get_post_meta( $discount_id, '_edd_discount_product_request', true );
 		$product_request = array_filter( array_values( $product_request ) );
 		$max_price       = get_post_meta( $discount_id, '_edd_discount_max_price', true );
-		wp_enqueue_script( 'ade-edd-js');
+		wp_enqueue_script( 'ade-edd-js' );
 		$condition_dis = empty( $product_request ) ? 'style="display:none;"' : '';
 		?>
 
@@ -192,7 +192,7 @@ class ADE_EDD_Discount_Options {
 
 		if ( isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce( $_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
 			$maxprice       = ! empty( $_POST['max_price'] ) ? floatval( $_POST['max_price'] ) : 0;
-			$productrequest = ! empty( $_POST['product_request'] ) ?  $_POST['product_request'] : array();
+			$productrequest = ! empty( $_POST['product_request'] ) ? $_POST['product_request'] : array();
 			$productrequest = array_map( 'esc_attr', $productrequest );
 			$arr            = array(
 				'max_price'       => $maxprice,
@@ -213,8 +213,8 @@ class ADE_EDD_Discount_Options {
 	public function ade_update_data() {
 
 		if ( isset( $_POST['edd-discount-nonce'] ) && wp_verify_nonce( $_POST['edd-discount-nonce'], 'edd_discount_nonce' ) ) {
-			$id   =  ! empty( $_GET['discount'] ) ? sanitize_key($_GET['discount'] ) : '' ;
-			$page = isset( $_GET['page'] ) ?  sanitize_key( $_GET['page'] ) : null;
+			$id   = ! empty( $_GET['discount'] ) ? sanitize_key( $_GET['discount'] ) : '';
+			$page = isset( $_GET['page'] ) ? sanitize_key( $_GET['page'] ) : null;
 			if ( 'edd-discounts' !== $page ) {
 				return;
 			}

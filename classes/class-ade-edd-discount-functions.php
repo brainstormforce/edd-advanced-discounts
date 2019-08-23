@@ -69,7 +69,7 @@ class ADE_EDD_Discount_Functions {
 	}
 
 	/**
-	 * Whether the product requirements are met for the discount to hold.
+	 * Check whether the product requirements are met for the discount to hold.
 	 *
 	 * @since 2.7
 	 *
@@ -81,9 +81,9 @@ class ADE_EDD_Discount_Functions {
 		if ( $return ) {
 			$return            = false;
 			$product_condition = edd_get_discount_product_condition( $discount_id );
-			$product_request = (array) get_post_meta( $discount_id, '_edd_discount_product_request', true );
-			$product_request = array_filter( array_values( $product_request ) );
-			$cart_items = edd_get_cart_contents();
+			$product_request   = (array) get_post_meta( $discount_id, '_edd_discount_product_request', true );
+			$product_request   = array_filter( array_values( $product_request ) );
+			$cart_items        = edd_get_cart_contents();
 
 			if ( empty( $product_request ) ) {
 				$return = true;
@@ -150,22 +150,22 @@ class ADE_EDD_Discount_Functions {
 	public function ade_item_in_cart( $ret = true, $download_id = 0, $options = array() ) {
 			$cart = edd_get_cart_contents();
 			$ret  = false;
-			if ( is_array( $cart ) ) {
-				foreach ( $cart as $item ) {
-					$pid = explode( '_', $download_id );
-					if ( $item['id'] == $pid[0] ) {//PHPCS:ignore:WordPress.PHP.StrictComparisons.LooseComparison
-						if ( isset( $pid[1] ) && isset( $item['options']['price_id'] ) ) {
-							if ( $pid[1] == $item['options']['price_id'] ) {//PHPCS:ignore:WordPress.PHP.StrictComparisons.LooseComparison
-								$ret = true;
-								break;
-							}
-						} else {
+		if ( is_array( $cart ) ) {
+			foreach ( $cart as $item ) {
+				$pid = explode( '_', $download_id );
+				if ( $item['id'] == $pid[0] ) {//PHPCS:ignore:WordPress.PHP.StrictComparisons.LooseComparison
+					if ( isset( $pid[1] ) && isset( $item['options']['price_id'] ) ) {
+						if ( $pid[1] == $item['options']['price_id'] ) {//PHPCS:ignore:WordPress.PHP.StrictComparisons.LooseComparison
 							$ret = true;
 							break;
 						}
+					} else {
+						$ret = true;
+						break;
 					}
 				}
 			}
+		}
 			return $ret;
 	}
 
@@ -174,20 +174,19 @@ class ADE_EDD_Discount_Functions {
 	 *
 	 * @param array $product_reqs IDs of required products.
 	 * @param int   $id           Discount ID.
-	 * @return array of product requirements
+	 * @return array of product requirements.
 	 */
 	public function ade_get_product_req( $product_reqs, $id ) {
 		if ( isset( $_GET['page'] ) && 'edd-discounts' === sanitize_key( $_GET['page'] ) ) {//PHPCS:ignore:WordPress.Security.NonceVerification.Recommended
 			return $product_reqs;
 		}
-
 			$product_request = (array) get_post_meta( $id, '_edd_discount_product_request', true );
 			$product_request = array_map( 'absint', $product_request );
 			$product_request = array_filter( array_values( $product_request ) );
 			asort( $product_request );
-			
 		if ( empty( $product_request ) ) {
-			return $product_request;
+			$product_reqs = array_filter( array_values( $product_reqs ) );
+			return $product_reqs;
 		}
 			return array_unique( wp_parse_args( $product_reqs, $product_request ) );
 	}

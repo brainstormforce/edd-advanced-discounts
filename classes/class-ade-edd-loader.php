@@ -41,8 +41,8 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		 * Constructor
 		 */
 		public function __construct() {
-			require_once ADE_EDD_ABSPATH . '/classes/class-ade-discount-options.php';
-			require_once ADE_EDD_ABSPATH . '/classes/class-ade-discount-functions.php';
+			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-options.php';
+			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-functions.php';
 			add_action( 'admin_notices', array( $this, 'ade_is_edd_active' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'ade_script' ) );
 
