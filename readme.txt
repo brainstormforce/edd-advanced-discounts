@@ -7,9 +7,7 @@ Requires PHP: 5.2
 Tested up to: 5.2
 Stable tag: 1.0.3
 License: GPLv2 or later
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
-
-The EDD Advanced Discounts plugin . 
+License URI: https://www.gnu.org/licenses/gpl-2.0.html 
 
 == Description ==
 
@@ -51,7 +49,9 @@ This is a simple plugin. Just install it and options will be added under Downloa
 You can choose product variations with a setting - Product Requirements, and 
 add maximum limit with a setting - Maximum Amount
 
-**Note**: As this is an addon for Easy Digital Downloads plugin make sure it is activated. 
+**Note**: 
+1. As this is an addon for Easy Digital Downloads plugin make sure it is activated 
+2. EDD Download Requirements setting available under Downloads > Discount Codes will not be effective with this plugin.
 
 
 == Screenshots ==
