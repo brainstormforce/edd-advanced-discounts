@@ -3,7 +3,7 @@ Contributors: brainstormforce
 Donate link: https://www.paypal.me/BrainstormForce
 Tags: edd, discount, variations
 Requires at least: 4.2
-Requires PHP: 5.2
+Requires PHP: 5.6
 Tested up to: 5.2
 Stable tag: 1.0.0
 License: GPLv2 or later
