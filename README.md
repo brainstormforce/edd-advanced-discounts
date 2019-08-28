@@ -2,7 +2,7 @@
 **Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
 **Donate link:** https://www.paypal.me/BrainstormForce  
 **Tags:** edd, discount, variations  
-**Requires at least:** 4.2  
+**Requires at least:** 4.7  
 **Requires PHP:** 5.6  
 **Tested up to:** 5.2  
 **Stable tag:** 1.0.0  
@@ -63,4 +63,3 @@ EDD Advanced Discount Plugin settings will be available under Downloads > Discou
 
 ### 1.0.0 ###
 - Initial Release.
-
