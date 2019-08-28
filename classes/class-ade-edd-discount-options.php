@@ -129,11 +129,11 @@ class ADE_EDD_Discount_Options {
 						<p>
 							<?php
 
-							echo EDD()->html->product_dropdown(//PHPCS:ignore:WordPress.Security.EscapeOutput.OutputNotEscaped
+							echo EDD()->html->product_dropdown(
 								array(
 									'name'        => 'product_request[]',
 									'id'          => 'product_request',
-									'selected'    => $product_request, //PHPCS:ignore:WordPress.Security.EscapeOutput.OutputNotEscaped
+									'selected'    => $product_request,
 									'multiple'    => true,
 									'chosen'      => true,
 									'variations'  => true,
