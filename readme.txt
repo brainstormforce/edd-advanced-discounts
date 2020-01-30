@@ -4,8 +4,8 @@ Donate link: https://www.paypal.me/BrainstormForce
 Tags: edd, discount, variations
 Requires at least: 4.7
 Requires PHP: 5.6
-Tested up to: 5.2
-Stable tag: 1.0.0
+Tested up to: 5.3.2
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html 
 
@@ -60,6 +60,8 @@ add maximum limit with a setting - Maximum Amount
 EDD Advanced Discount Plugin settings will be available under Downloads > Discount Codes. 
 
 == Changelog ==
-
-= 1.0.0 =
+= Version 1.1.0  30th January 2020 =
+- Fix: jquery dependency error.
+	
+= Version 1.0.0 =
 - Initial Release.

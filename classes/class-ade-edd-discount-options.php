@@ -133,7 +133,7 @@ class ADE_EDD_Discount_Options {
 								array(
 									'name'        => 'product_request[]',
 									'id'          => 'product_request',
-									'selected'    => $product_request,
+									'selected'    => $product_request, //phpcs:ignore
 									'multiple'    => true,
 									'chosen'      => true,
 									'variations'  => true,
