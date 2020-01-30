@@ -60,8 +60,8 @@ add maximum limit with a setting - Maximum Amount
 EDD Advanced Discount Plugin settings will be available under Downloads > Discount Codes. 
 
 == Changelog ==
-= Version 1.1.0  30th January 2020 =
-- Fix: jquery dependency error.
+= Version 1.1.0 - Thursday, 30th January 2020 =
+* Fix: jquery dependency error.
 	
 = Version 1.0.0 =
-- Initial Release.
+* Initial Release.
