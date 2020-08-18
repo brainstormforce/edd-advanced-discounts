@@ -53,7 +53,7 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		 */
 		public function ade_script() {
 
-			wp_register_script( 'ade-edd-js', ADE_EDD_PLUGIN_URL . '/assets/js/ade_load_js.js', array( 'jquery' ), '1.0.1', true );
+			wp_register_script( 'ade-edd-js', ADE_EDD_PLUGIN_URL . '/assets/js/ade_load_js.js', array( 'jquery' ), '1.0.2', true );
 
 		}
 
