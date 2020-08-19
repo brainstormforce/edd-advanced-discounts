@@ -1,6 +1,6 @@
 {
   "name": "edd-advanced-discounts",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Customize EDD discounts easily that will bring more sales and profit to your store. Offer discounts on selected product variations and set a maximum limit for cart total.",
   "main": "Gruntfile.js",
   "scripts": {

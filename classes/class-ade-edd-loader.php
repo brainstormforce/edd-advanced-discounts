@@ -41,6 +41,7 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		 * Constructor
 		 */
 		public function __construct() {
+
 			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-options.php';
 			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-functions.php';
 			add_action( 'admin_notices', array( $this, 'ade_is_edd_active' ) );
@@ -53,7 +54,7 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		 */
 		public function ade_script() {
 
-			wp_register_script( 'ade-edd-js', ADE_EDD_PLUGIN_URL . '/assets/js/ade_load_js.js', array( 'jquery' ), '1.0.1', true );
+			wp_register_script( 'ade-edd-js', ADE_EDD_PLUGIN_URL . '/assets/js/ade_load_js.js', array( 'jquery' ), ADE_EDD_VER, true );
 
 		}
 
