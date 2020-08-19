@@ -14,6 +14,7 @@
  * @link     https://brainstormforce.com
  */
 
+define( 'ADE_EDD_VER', '1.0.2' );
 define( 'ADE_EDD_ABSPATH', plugin_dir_path( __FILE__ ) );
 define( 'ADE_EDD_PLUGIN_URL', untrailingslashit( plugins_url( '', __FILE__ ) ) );
 define( 'ADE_EDD_PLUGIN_DIR', untrailingslashit( plugin_dir_path( __FILE__ ) ) );
