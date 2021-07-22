@@ -4,7 +4,7 @@
 **Tags:** edd, discount, variations  
 **Requires at least:** 4.7  
 **Requires PHP:** 5.6  
-**Tested up to:** 5.7  
+**Tested up to:** 5.8  
 **Stable tag:** 1.0.2  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html   
@@ -62,10 +62,10 @@ EDD Advanced Discount Plugin settings will be available under Downloads > Discou
 ## Changelog ##
 
 ### Version 1.0.2 - Wednesday, 19th August 2020 ###
-- Improvement: Added the WordPress 5.5 compatibilty.
+* Improvement: Added the WordPress 5.5 compatibilty.
 
 ### Version 1.0.1 - Friday, 31st January 2020 ###
-- Fix: jQuery dependency error while adding coupon code.
-
-### 1.0.0 ###
-- Initial Release.
+* Fix: jQuery dependency error while adding coupon code.
+	
+### Version 1.0.0 ###
+* Initial Release.
