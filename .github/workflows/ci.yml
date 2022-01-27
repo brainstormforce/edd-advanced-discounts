@@ -13,14 +13,14 @@ concurrency:
 jobs:
   lint-and-audit:
 
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
       with:
         token: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
 
-   - name: Set composer token
+    - name: Set composer token
       run: composer config github-oauth.github.com ${{ secrets.PRIVATE_ACCESS_TOKEN }} 
 
     - name: Composer Install
