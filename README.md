@@ -1,5 +1,5 @@
 # EDD Advanced Discounts #
-**Contributors:** [pratikchaskar](https://profiles.wordpress.org/pratikchaskar)  
+**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
 **Donate link:** https://www.paypal.me/BrainstormForce  
 **Tags:** edd, discount, variations  
 **Requires at least:** 4.7  
@@ -61,7 +61,7 @@ EDD Advanced Discount Plugin settings will be available under Downloads > Discou
 
 ## Changelog ##
 
-### Version 1.0.3 - Wednesday, 23rd November 2022 ###
+### Version 1.0.3 - Wednesday, 23rd November 20222 ###
 * Improvement: Added compatibility to WordPress 6.1
 
 ### Version 1.0.2 - Wednesday, 19th August 2020 ###
