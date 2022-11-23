@@ -1,11 +1,11 @@
 # EDD Advanced Discounts #
-**Contributors:** [brainstormforce](https://profiles.wordpress.org/brainstormforce)  
+**Contributors:** [pratikchaskar](https://profiles.wordpress.org/pratikchaskar)  
 **Donate link:** https://www.paypal.me/BrainstormForce  
 **Tags:** edd, discount, variations  
 **Requires at least:** 4.7  
 **Requires PHP:** 5.6  
-**Tested up to:** 6.0
-**Stable tag:** 1.0.2  
+**Tested up to:** 6.1  
+**Stable tag:** 1.0.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html   
 
@@ -60,6 +60,9 @@ add maximum limit with a setting - Maximum Amount
 EDD Advanced Discount Plugin settings will be available under Downloads > Discount Codes. 
 
 ## Changelog ##
+
+### Version 1.0.3 - Wednesday, 23rd November 2022 ###
+* Improvement: Added compatibility to WordPress 6.1
 
 ### Version 1.0.2 - Wednesday, 19th August 2020 ###
 * Improvement: Added the WordPress 5.5 compatibilty.
