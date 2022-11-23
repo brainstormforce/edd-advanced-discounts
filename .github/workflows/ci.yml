@@ -11,27 +11,24 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-  lint-and-audit:
+  phpcs:
+      name: PHPCS
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
 
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        token: ${{ secrets.PRIVATE_ACCESS_TOKEN }}
+        - name: Setup PHP
+          uses: shivammathur/setup-php@v2
+          with:
+            php-version: 7.4
+            coverage: none
+            tools: composer, cs2pr
 
-    - name: Set composer token
-      run: composer config github-oauth.github.com ${{ secrets.PRIVATE_ACCESS_TOKEN }} 
+        - name: Install composer dependencies
+          run: composer config github-oauth.github.com ${{ secrets.PRIVATE_ACCESS_TOKEN }} && composer install --prefer-dist --no-suggest --no-progress
 
-    - name: Composer Install
-      uses: ramsey/composer-install@v1
-
-    - name: PHPCS check
-      if: always()
-      uses: chekalsky/phpcs-action@v1
-      with:
-        phpcs_bin_path: './vendor/bin/phpcs'
-
-    - name: PHP Syntax Errors
-      if: always()
-      run: if find . -name "*.php" ! -path "./vendor/*" ! -path "./admin/bsf-core/*" -exec php -l {} \; | grep "Errors parsing"; then exit 1; fi
+        - name: Run phpcs
+          id: phpcs
+          if: always()
+          run: ./vendor/bin/phpcs --report-full --report-checkstyle=./phpcs-report.xml
