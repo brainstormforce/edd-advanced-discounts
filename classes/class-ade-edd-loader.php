@@ -42,9 +42,15 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		 */
 		public function __construct() {
 
+			add_action( 'admin_notices', array( $this, 'ade_is_edd_active' ) );
+
+			if( ! $this->is_edd_active() ) {
+				return;
+			}
+
 			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-options.php';
 			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-functions.php';
-			add_action( 'admin_notices', array( $this, 'ade_is_edd_active' ) );
+			
 			add_action( 'admin_enqueue_scripts', array( $this, 'ade_script' ) );
 
 		}
@@ -59,11 +65,21 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		}
 
 		/**
+		 *  Checks is Easy Digital Downloads plugin active or not.
+		 */
+		public function is_edd_active() {
+			if ( is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) || is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ) {
+				return true;
+			}
+			return true;
+		}
+
+		/**
 		 *  Checks is Easy Digital Downloads plugin active or not if not install and activate .
 		 */
 		public function ade_is_edd_active() {
 			$url = network_admin_url() . 'plugin-install.php?s=Easy+Digital+Downloads&tab=search&type=term';
-			if ( ! is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ) {
+			if ( ! $this->is_edd_active() ) {
 
 				echo '<div class="notice notice-error">';
 				echo '<p>The <strong>EDD Advanced Discount</strong> ' . esc_html__( 'plugin requires', 'advanced-discount-edd' ) . " <strong><a href='" . esc_url( $url ) . "'>Easy Digital Downloads</strong></a>" . esc_html__( ' plugin installed & activated.', 'advanced-discount-edd' ) . '</p>';
