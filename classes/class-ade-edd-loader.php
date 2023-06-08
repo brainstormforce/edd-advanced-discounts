@@ -44,13 +44,13 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 
 			add_action( 'admin_notices', array( $this, 'ade_is_edd_active' ) );
 
-			if( ! $this->is_edd_active() ) {
+			if ( ! $this->is_edd_active() ) {
 				return;
 			}
 
 			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-options.php';
 			require_once ADE_EDD_ABSPATH . '/classes/class-ade-edd-discount-functions.php';
-			
+
 			add_action( 'admin_enqueue_scripts', array( $this, 'ade_script' ) );
 
 		}
