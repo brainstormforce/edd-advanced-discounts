@@ -5,7 +5,7 @@
 **Requires at least:** 4.7  
 **Requires PHP:** 5.6  
 **Tested up to:** 6.2  
-**Stable tag:** 1.0.2  
+**Stable tag:** 1.0.3  
 **License:** GPLv2 or later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html   
 
@@ -60,6 +60,9 @@ add maximum limit with a setting - Maximum Amount
 EDD Advanced Discount Plugin settings will be available under Downloads > Discount Codes. 
 
 ## Changelog ##
+
+### Version 1.0.3 - Thursday, 8th June 2023 ###
+* Improvement: Add compatibility with Easy Digital Downloads Pro plugin.
 
 ### Version 1.0.2 - Wednesday, 19th August 2020 ###
 * Improvement: Added the WordPress 5.5 compatibilty.
