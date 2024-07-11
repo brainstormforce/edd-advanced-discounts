@@ -11,7 +11,7 @@
  * @link     https://pratikchaskar.com/
  */
 
- if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
+if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 	/**
 	 * Advanced coupons for EDD Loader Doc comment
 	 *
@@ -28,6 +28,7 @@
 		 * @var instance
 		 */
 		private static $instance;
+
 		/**
 		 *  Initiator
 		 */
@@ -37,6 +38,7 @@
 			}
 			return self::$instance;
 		}
+
 		/**
 		 * Constructor
 		 */
@@ -56,19 +58,17 @@
 		}
 
 		/**
-		 *  Register JS file for enable and disable product condition.
+		 * Register JS file for enable and disable product condition.
 		 */
 		public function ade_script() {
-
 			wp_register_script( 'ade-edd-js', ADE_EDD_PLUGIN_URL . '/assets/js/ade_load_js.js', array( 'jquery' ), ADE_EDD_VER, true );
-
 		}
 
 		/**
-		 *  Checks if Easy Digital Downloads plugin is active or not.
+		 * Checks if Easy Digital Downloads plugin is active or not.
 		 */
 		public function is_edd_active() {
-			// Ensure the is_plugin_active function is available
+			// Ensure the is_plugin_active function is available.
 			if ( ! function_exists( 'is_plugin_active' ) ) {
 				require_once ABSPATH . 'wp-admin/includes/plugin.php';
 			}
@@ -80,16 +80,14 @@
 		}
 
 		/**
-		 *  Checks if Easy Digital Downloads plugin is active or not, if not install and activate.
+		 * Checks if Easy Digital Downloads plugin is active or not, if not install and activate.
 		 */
 		public function ade_is_edd_active() {
 			$url = network_admin_url() . 'plugin-install.php?s=Easy+Digital+Downloads&tab=search&type=term';
 			if ( ! $this->is_edd_active() ) {
-
 				echo '<div class="notice notice-error">';
 				echo '<p>The <strong>EDD Advanced Discount</strong> ' . esc_html__( 'plugin requires', 'advanced-discount-edd' ) . " <strong><a href='" . esc_url( $url ) . "'>Easy Digital Downloads</strong></a>" . esc_html__( ' plugin installed & activated.', 'advanced-discount-edd' ) . '</p>';
 				echo '</div>';
-
 			}
 		}
 	}
