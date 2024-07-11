@@ -4,7 +4,7 @@
  *
  * @since      1.0.0
  * @package    Advanced Discount EDD
- * @author     Brainstorm Force.
+ * @author     Pratik Chaskar.
  */
 
 /**

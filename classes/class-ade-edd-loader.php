@@ -6,20 +6,20 @@
  *
  * @category PHP
  * @package  Advanced Discount EDD
- * @author   Display Name <username@brainstormforce.com>
- * @license  http://brainstormforce.com
- * @link     http://brainstormforce.com
+ * @author   Pratik Chaskar
+ * @license  https://pratikchaskar.com/
+ * @link     https://pratikchaskar.com/
  */
 
-if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
+ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 	/**
 	 * Advanced coupons for EDD Loader Doc comment
 	 *
 	 * @category PHP 7
 	 * @package  Advanced Discount EDD
-	 * @author   Display Name <username@brainstormforce.com>
-	 * @license  http://brainstormforce.com
-	 * @link     http://brainstormforce.com
+	 * @author   Pratik Chaskar
+ 	 * @license  https://pratikchaskar.com/
+ 	 * @link     https://pratikchaskar.com/
 	 */
 	class ADE_EDD_Loader {
 		/**
@@ -65,9 +65,14 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		}
 
 		/**
-		 *  Checks is Easy Digital Downloads plugin active or not.
+		 *  Checks if Easy Digital Downloads plugin is active or not.
 		 */
 		public function is_edd_active() {
+			// Ensure the is_plugin_active function is available
+			if ( ! function_exists( 'is_plugin_active' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin.php';
+			}
+
 			if ( is_plugin_active( 'easy-digital-downloads-pro/easy-digital-downloads.php' ) || is_plugin_active( 'easy-digital-downloads/easy-digital-downloads.php' ) ) {
 				return true;
 			}
@@ -75,7 +80,7 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		}
 
 		/**
-		 *  Checks is Easy Digital Downloads plugin active or not if not install and activate .
+		 *  Checks if Easy Digital Downloads plugin is active or not, if not install and activate.
 		 */
 		public function ade_is_edd_active() {
 			$url = network_admin_url() . 'plugin-install.php?s=Easy+Digital+Downloads&tab=search&type=term';
@@ -89,5 +94,5 @@ if ( ! class_exists( 'ADE_EDD_Loader' ) ) :
 		}
 	}
 
-		ADE_EDD_Loader::get_instance();
+	ADE_EDD_Loader::get_instance();
 endif;
