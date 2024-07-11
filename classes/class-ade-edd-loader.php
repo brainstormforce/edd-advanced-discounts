@@ -18,8 +18,8 @@
 	 * @category PHP 7
 	 * @package  Advanced Discount EDD
 	 * @author   Pratik Chaskar
- 	 * @license  https://pratikchaskar.com/
- 	 * @link     https://pratikchaskar.com/
+	 * @license  https://pratikchaskar.com
+	 * @link     https://pratikchaskar.com
 	 */
 	class ADE_EDD_Loader {
 		/**
